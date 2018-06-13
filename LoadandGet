@@ -1,0 +1,55 @@
+package com.std.model;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class SelectFromDatabase {
+
+	// Load and get methods......!!!!
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Configuration con = new Configuration().configure("hibernate.cfg.xml");
+
+		SessionFactory sf = con.buildSessionFactory();
+
+		Session s = sf.openSession();
+
+		Transaction t = s.beginTransaction();
+		Student sn = new Student();
+
+		sn.setId(1);
+		sn.setName("Vinaysai");
+
+		// Get Example
+		Student se = (Student) s.get(Student.class, new Integer(1));
+		System.out.println("Student get called");
+		System.out.println("Student ID= " + se.getId());
+		System.out.println("Student Get Details:: " + s + "\n");
+
+		// load Example
+		Student se1 = (Student) s.load(Student.class, new Integer(2));
+		System.out.println("Student load called");
+		System.out.println("Student ID= " + se1.getId());
+		System.out.println("Student load Details:: " + se1 + "\n");
+		//
+
+		// Save Method.
+		// sn.setId(3);
+		// sn.setName("vinaysai");
+		// s.save(sn);
+
+		// Update method.
+
+		sn.setId(1);
+		sn.setName("VINAYSAI2837");
+		s.update(sn);
+
+		System.out.println("Update");
+		t.commit();
+		s.close();
+
+	}
+}
